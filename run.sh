@@ -57,9 +57,24 @@ if [ ! -f "config.json" ]; then
     # The default config.json will be created by git checkout or user can copy it
 fi
 
-# Check if .env file exists and has token, prompt for input if needed
-if [ ! -f ".env" ] || [ ! -s ".env" ]; then
-    echo -e "${YELLOW}⚠️  Discord token not found in .env file${NC}"
+# Check if .env file exists and has valid token, prompt for input if needed
+TOKEN_VALID=false
+
+if [ -f ".env" ] && [ -s ".env" ]; then
+    # Extract token from .env file
+    DISCORD_TOKEN=$(grep "^TOKEN=" .env | cut -d'=' -f2- | tr -d '\n' | tr -d '\r')
+    
+    # Check if token is not empty and looks valid (basic length check)
+    if [ -n "$DISCORD_TOKEN" ] && [ ${#DISCORD_TOKEN} -gt 50 ]; then
+        echo -e "${GREEN}✅ Token already configured in .env${NC}"
+        TOKEN_VALID=true
+    else
+        echo -e "${YELLOW}⚠️  Invalid or empty token found in .env${NC}"
+    fi
+fi
+
+if [ "$TOKEN_VALID" = false ]; then
+    echo -e "${YELLOW}⚠️  Discord token not found or invalid${NC}"
     echo -e "${BLUE}Please enter your Discord token:${NC}"
     read -s -p "Token: " DISCORD_TOKEN
     echo
@@ -69,11 +84,16 @@ if [ ! -f ".env" ] || [ ! -s ".env" ]; then
         exit 1
     fi
     
+    # Basic token validation
+    if [ ${#DISCORD_TOKEN} -lt 50 ]; then
+        echo -e "${RED}Error: Token appears to be too short (should be 50+ characters)${NC}"
+        echo -e "${YELLOW}Please make sure you're using a valid Discord bot token${NC}"
+        exit 1
+    fi
+    
     # Create or update .env file with user input
     echo "TOKEN=$DISCORD_TOKEN" > .env
     echo -e "${GREEN}✅ Token saved to .env file successfully${NC}"
-else
-    echo -e "${GREEN}✅ Token already configured in .env${NC}"
 fi
 
 # Check if config.json is properly configured
