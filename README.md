@@ -1,4 +1,4 @@
-# UnbelievaBoat [AUTO]
+# AutoBoat
 
 This is a Python bot for Discord accounts that automates the UnbelievaBoat bot to ensure a peak grind of xp and fake currency
 
@@ -12,9 +12,7 @@ This is a Python bot for Discord accounts that automates the UnbelievaBoat bot t
 
 ## 🎁 Features
 
-- Automatically runs the `work` command at a specified interval.
-- Deposits all earned money after each `work` command.
-- Can be started and stopped with `!start` and `!stop` commands.
+- Can run any command with any prefix at any integer. Check the config file for details.
 
 ## 💻 Installation
 
@@ -32,19 +30,13 @@ This is a Python bot for Discord accounts that automates the UnbelievaBoat bot t
     cd UnbelievaBoat-AUTO
     ```
 
-3. Run the setup script:
-
-    ```bash
-    python3 setup.py
-    ```
-
-4. Replace `"TOKEN"` in `main.py` with your Discord bot token.
-
-5. Run the bot:
+3. Run the script:
 
     ```bash
     ./run.sh
     ```
+
+4. The script will set up the bot and ask for your Discord token.
 
 ### Manual Setup
 
@@ -62,21 +54,17 @@ This is a Python bot for Discord accounts that automates the UnbelievaBoat bot t
     pip install -U aiohttp[speedups]
     ```
 
-3. Replace `"TOKEN"` in `main.py` with your Discord bot token.
-
 ## 🚀 Usage
 
 1. Run the bot:
 
     ```bash
-    python main.py
+    ./run.sh
     ```
-
-2. In your Discord server, use `!start` to start the bot and `!stop` to stop it.
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/QuartzWarrior/UnbelievaBoat-AUTO/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check [issues page](https://github.com/dim-ghub/AutoBoat/issues).
 
 ## 📝 License
 
@@ -92,4 +80,4 @@ If you have any questions, open an issue and I'll get back to you..
 
 ---
 
-> UnbelievaBoat [AUTO] was created for educational purposes only. The developers and contributors do not take any responsibility for your Discord account. ⚠️
+> AutoBoat was created for educational purposes only. The developers and contributors do not take any responsibility for your Discord account. ⚠️
