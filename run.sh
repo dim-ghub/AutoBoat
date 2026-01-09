@@ -39,9 +39,9 @@ if [ ! -f "main.py" ]; then
     exit 1
 fi
 
-# Check if TOKEN is configured and prompt for input if needed
-if grep -q '"TOKEN"' main.py; then
-    echo -e "${YELLOW}⚠️  Discord token not found in main.py${NC}"
+# Check if .env file exists and has token, prompt for input if needed
+if [ ! -f ".env" ] || grep -q "your_discord_token_here" .env; then
+    echo -e "${YELLOW}⚠️  Discord token not found in .env file${NC}"
     echo -e "${BLUE}Please enter your Discord token:${NC}"
     read -s -p "Token: " DISCORD_TOKEN
     echo
@@ -51,11 +51,11 @@ if grep -q '"TOKEN"' main.py; then
         exit 1
     fi
     
-    # Replace TOKEN in main.py with user input
-    sed -i "s/\"TOKEN\"/\"$DISCORD_TOKEN\"/" main.py
-    echo -e "${GREEN}✅ Token configured successfully${NC}"
+    # Create or update .env file with user input
+    echo "TOKEN=$DISCORD_TOKEN" > .env
+    echo -e "${GREEN}✅ Token saved to .env file successfully${NC}"
 else
-    echo -e "${GREEN}✅ Token already configured${NC}"
+    echo -e "${GREEN}✅ Token already configured in .env${NC}"
 fi
 
 # Run the bot
